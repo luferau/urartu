@@ -10,9 +10,12 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="support" Type="Folder">
+			<Item Name="Data Share Type.ctl" Type="VI" URL="../support/Data Share Type.ctl"/>
+		</Item>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
-			<Item Name="MapNetControl.dll" Type="Document" URL="../../UrartuSolution/MapNetControl/bin/Debug/MapNetControl.dll"/>
+			<Item Name="MapNetControl.dll" Type="Document" URL="../../vs/MapNetControl/bin/Release/MapNetControl.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Main" Type="EXE">

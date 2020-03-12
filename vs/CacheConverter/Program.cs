@@ -47,8 +47,13 @@ namespace CacheConverter
             // X {0} and Y {1} numbers and the Zoom level {2}
             // os_{0}_{1}_{2},
 
+            /*
             var sourceFolder = @"g:\_soft\SASPlanet_160707\SAS.Planet.Release.160707\cache\map\";
             var destinationFolder = @"g:\_soft\SASPlanet_160707\SAS.Planet.Release.160707\cache\map_\";
+            */
+
+            var sourceFolder = @"g:\_soft\SAS.Planet.Release.190707\cache\sat\";
+            var destinationFolder = @"g:\_soft\SAS.Planet.Release.190707\cache\sat_\";
 
             var filePaths = GetFileList("*.*", sourceFolder).ToArray();
 

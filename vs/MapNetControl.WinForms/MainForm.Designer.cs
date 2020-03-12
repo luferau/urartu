@@ -36,14 +36,14 @@
             this.mapNetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapNetControl1.Location = new System.Drawing.Point(0, 0);
             this.mapNetControl1.Name = "mapNetControl1";
-            this.mapNetControl1.Size = new System.Drawing.Size(800, 450);
+            this.mapNetControl1.Size = new System.Drawing.Size(800, 432);
             this.mapNetControl1.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 432);
             this.Controls.Add(this.mapNetControl1);
             this.Name = "MainForm";
             this.Text = "Form1";
