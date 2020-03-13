@@ -52,8 +52,8 @@ namespace CacheConverter
             var destinationFolder = @"g:\_soft\SASPlanet_160707\SAS.Planet.Release.160707\cache\map_\";
             */
 
-            var sourceFolder = @"g:\_soft\SAS.Planet.Release.190707\cache\sat\";
-            var destinationFolder = @"g:\_soft\SAS.Planet.Release.190707\cache\sat_\";
+            var sourceFolder = @"d:\_soft\SAS.Planet.Release.190707\cache\map\";
+            var destinationFolder = @"d:\upwork\urartu project\maps\google_map\";
 
             var filePaths = GetFileList("*.*", sourceFolder).ToArray();
 

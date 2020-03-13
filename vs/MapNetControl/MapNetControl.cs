@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
 using System.Linq;
+using Telerik.WinControls.UI.Map;
 
 namespace MapNetControl
 {
@@ -13,6 +15,17 @@ namespace MapNetControl
 
             radMap.ShowSearchBar = false;
 
+            // Create map layers
+            SetupLayers();
+
+        }
+        private void SetupLayers()
+        {
+            var pathLayer = new MapLayer("Path");
+            radMap.Layers.Add(pathLayer);
+
+            MapLayer pinsLayer = new MapLayer("Pins");
+            radMap.Layers.Add(pinsLayer);
         }
 
         public void SetMapTitlesFolder(string titlesFolder)
@@ -49,14 +62,13 @@ namespace MapNetControl
             radMap.Providers?.Add(provider);
         }
 
-        public void ShowPath()
+        public void AddPin(double latitude_deg, double longitude_deg, string text)
         {
-
+            var pin = new MapPin(new PointG(latitude_deg, longitude_deg));
+            pin.ToolTipText = text;
+            pin.BackColor = Color.FromArgb(11, 195, 197);
+            radMap.Layers["Pins"].Add(pin);
         }
 
-        private void SetupLayers()
-        {
-
-        }
     }
 }
