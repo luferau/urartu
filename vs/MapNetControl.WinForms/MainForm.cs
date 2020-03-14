@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Telerik.WinControls.UI.Map;
 
 namespace MapNetControl.WinForms
 {
@@ -13,7 +14,12 @@ namespace MapNetControl.WinForms
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            mapNetControl1.AddPin(52.5076682, 13.286064, "Berlin");
+            mapNetControl1.AddPin(53.898727, 27.559064, "Minsk");
+        }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            mapNetControl1.Pin.Location = new PointG(53.898727, 29.559064);
         }
     }
 }

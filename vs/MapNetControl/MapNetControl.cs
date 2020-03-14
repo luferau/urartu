@@ -55,19 +55,23 @@ namespace MapNetControl
             {
                 DirectoryPath = titlesFolder,
                 // X {0} and Y {1} Zoom level {2}
-                FileFormat = @"z{2}_x{0}_y{1}" + extension,
+                FileFormat = @"{0}_{1}_{2}" + extension,
                 MinZoomLevel = 1,
                 MaxZoomLevel = 20
             };
             radMap.Providers?.Add(provider);
         }
 
+        public MapPin Pin;
+
         public void AddPin(double latitude_deg, double longitude_deg, string text)
         {
-            var pin = new MapPin(new PointG(latitude_deg, longitude_deg));
-            pin.ToolTipText = text;
-            pin.BackColor = Color.FromArgb(11, 195, 197);
-            radMap.Layers["Pins"].Add(pin);
+            Pin = new MapPin(new PointG(latitude_deg, longitude_deg))
+            {
+                ToolTipText = text,
+                BackColor = Color.FromArgb(200, 50, 50)
+            };
+            radMap.Layers["Pins"].Add(Pin);
         }
 
     }
