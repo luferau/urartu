@@ -1,14 +1,19 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
 using System.Linq;
+using System.Resources;
+using MapNetControl.Urartu;
 using Telerik.WinControls.UI.Map;
 
 namespace MapNetControl
 {
     public partial class MapNetControl: UserControl
     {
+        private ResourceManager _resourceManager;
+
         public MapNetControl()
         {
             InitializeComponent();
@@ -18,14 +23,77 @@ namespace MapNetControl
             // Create map layers
             SetupLayers();
 
+            radMap.MapElement.ViewportChanged += MapElementOnViewportChanged;
+            radMap.Click += RadMapOnClick;
+
+            _resourceManager = new ResourceManager(typeof(MapNetControl));
         }
+
+        #region Events
+
+        private void MapElementOnViewportChanged(object sender, ViewportChangedEventArgs e)
+        {
+            if ((e.Action & ViewportChangeAction.Zoom) != 0)
+            {
+                radMap.Layers["Pins"].IsVisible = radMap.MapElement.ZoomLevel <= 13;
+                radMap.Layers["Callout"].IsVisible = radMap.MapElement.ZoomLevel <= 13;
+                radMap.Layers["Labels"].IsVisible = radMap.MapElement.ZoomLevel > 13;
+            }
+        }
+
+        private void RadMapOnClick(object sender, EventArgs e)
+        {
+            var args = e as MouseEventArgs;
+            radMap.Layers["Callout"].Clear();
+
+            var point = new PointL(args.X - radMap.MapElement.PanOffset.Width, args.Y - radMap.MapElement.PanOffset.Height);
+            var pin = radMap.Layers.HitTest(point) as MapPin;
+
+            if (!(pin?.Tag is PointData pointData)) return;
+
+            var calloutText = $"Скорость, м/с: {pointData.Speed_m_s}\n" +
+                              $"Высота, м: {pointData.Altitude_m}\n" +
+                              $"\nДавление:\n" +
+                              $"Наддувочное давление воздуха, Па: {pointData.PressureAir_Pa}\n" +
+                              $"Давление масла, кгс/см^2: {pointData.PressureOil_kgs_cm2}\n" +
+                              $"Давление топлива, кгс/см^2: {pointData.PressureFuel_kgs_cm2}\n" +
+                              $"\nВлажность, кг/м^3: {pointData.Humidity_kg_m3}\n" +
+                              $"\nТемпература, C: {pointData.TemperatureAir_C}\n" +
+                              $"\nЧастота вр. кол. вала, об/мин: {pointData.RotationSpeedCrankshaft_turn_min}";
+
+            var calloutColor = pointData.Warning ? UrartuHelper.WarningColor : UrartuHelper.NormalColor;
+            var calloutImage = (Image)(pointData.Warning ? _resourceManager.GetObject("truck_warning")
+                                                         : _resourceManager.GetObject("truck_ok"));
+
+            var callout = new MapCallout(pin)
+            {
+                ForeColor = Color.White,
+                BackColor = calloutColor,
+                BorderColor = Color.White,
+                Image = calloutImage,
+                Text = calloutText
+            };
+            radMap.Layers["Callout"].Add(callout);
+        }
+
+        #endregion
+
         private void SetupLayers()
         {
+            var pinsLayer = new MapLayer("Pins");
+            radMap.Layers.Add(pinsLayer);
+
             var pathLayer = new MapLayer("Path");
             radMap.Layers.Add(pathLayer);
 
-            MapLayer pinsLayer = new MapLayer("Pins");
-            radMap.Layers.Add(pinsLayer);
+            var labelsLayer = new MapLayer("Labels")
+            {
+                IsVisible = false
+            };
+            radMap.Layers.Add(labelsLayer);
+
+            var calloutLayer = new MapLayer("Callout");
+            radMap.Layers.Add(calloutLayer);
         }
 
         public void SetMapTitlesFolder(string titlesFolder)
@@ -62,26 +130,64 @@ namespace MapNetControl
             radMap.Providers?.Add(provider);
         }
 
+        #region Points
+
+        public void AddPoint(PointData point, string text)
+        {
+            var color = point.Warning ? UrartuHelper.WarningColor : UrartuHelper.NormalColor;
+            var image = (Image) (point.Warning ? _resourceManager.GetObject("truck_warning") 
+                                               : _resourceManager.GetObject("truck_ok"));
+            
+            // Add pin
+            AddPinLocal(
+                point.Latitude_deg,
+                point.Longitude_deg,
+                point,
+                text,
+                color);
+
+            // Add label
+            var labelText = $"Скорость, м/с: {point.Speed_m_s}\n" +
+                            $"Высота, м: {point.Altitude_m}\n" +
+                            $"Частота вр. кол. вала, об/мин: {point.RotationSpeedCrankshaft_turn_min}";
+
+            AddLabelLocal(
+                point.Latitude_deg,
+                point.Longitude_deg,
+                labelText,
+                color,
+                image);
+
+            // Add path
+            AddPathPoint(
+                point.Latitude_deg,
+                point.Longitude_deg,
+                color);
+        }
+
+        #endregion
+
         #region Pins
 
-        private void AddPinLocal(double latitude_deg, double longitude_deg, string text, int r, int g, int b)
+        private void AddPinLocal(double latitude_deg, double longitude_deg, object tag, string text, Color color)
         {
             var pin = new MapPin(new PointG(latitude_deg, longitude_deg))
             {
+                Tag = tag,
                 ToolTipText = text,
-                BackColor = Color.FromArgb(r, g, b)
+                BackColor = color
             };
             radMap.Layers["Pins"].Add(pin);
         }
 
         public void AddPin(double latitude_deg, double longitude_deg, string text)
         {
-            AddPinLocal(latitude_deg, longitude_deg, text, 11, 195, 197);
+            AddPinLocal(latitude_deg, longitude_deg, null, text, Color.FromArgb(11, 195, 197));
         }
 
         public void AddPin(double latitude_deg, double longitude_deg, string text, int r, int g, int b)
         {
-            AddPinLocal(latitude_deg, longitude_deg, text, r, g, b);
+            AddPinLocal(latitude_deg, longitude_deg, null, text, Color.FromArgb(r, g, b));
         }
 
         public void ClearPins()
@@ -109,7 +215,7 @@ namespace MapNetControl
         private bool _pathStarted;
         private PointG _previousPoint;
 
-        public void AddPathPoint(double latitude_deg, double longitude_deg)
+        public void AddPathPoint(double latitude_deg, double longitude_deg, Color color)
         {
             if (!_pathStarted)
             {
@@ -119,7 +225,7 @@ namespace MapNetControl
             }
 
             var nextPoint = new PointG(latitude_deg, longitude_deg);
-            var pathElement = CreatePathSegment(_previousPoint, nextPoint, Color.Red, 3, 0);
+            var pathElement = CreatePathSegment(_previousPoint, nextPoint, color, 3, 0);
 
             radMap.Layers["Path"].Add(pathElement);
 
@@ -131,6 +237,23 @@ namespace MapNetControl
             radMap.Layers["Path"].Clear();
         }
 
+        #endregion
+
+        #region Labels
+
+        private void AddLabelLocal(double latitude_deg, double longitude_deg, string text, Color color, Image image)
+        {
+            var label = new MapLabel(new PointG(latitude_deg, longitude_deg), text)
+            {
+                // Add transparence
+                BackColor = Color.FromArgb(100, color.R, color.G, color.B),
+                BorderColor = Color.White,
+                ForeColor = Color.White,
+                Image = image
+            };
+            radMap.Layers["Labels"].Add(label);
+        }
+        
         #endregion
     }
 }

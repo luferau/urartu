@@ -25,7 +25,6 @@ namespace CacheConverter
             IsCommand("convert", "Convert map tile files name to Telerik LocalMapProvider files format.");
             HasRequiredOption("s|source=", "The full path to source folder.", s => SourceFolder = s);
             HasRequiredOption("d|destination=", "The full path to destination folder.", d => DestinationFolder = d);
-            
         }
 
         public override int Run(string[] remainingArguments)
