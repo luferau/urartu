@@ -19,7 +19,7 @@ namespace MapNetControl.WinForms
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            mapNetControl1.Pin.Location = new PointG(53.898727, 29.559064);
+            
         }
     }
 }

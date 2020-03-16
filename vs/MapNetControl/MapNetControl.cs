@@ -62,17 +62,75 @@ namespace MapNetControl
             radMap.Providers?.Add(provider);
         }
 
-        public MapPin Pin;
+        #region Pins
+
+        private void AddPinLocal(double latitude_deg, double longitude_deg, string text, int r, int g, int b)
+        {
+            var pin = new MapPin(new PointG(latitude_deg, longitude_deg))
+            {
+                ToolTipText = text,
+                BackColor = Color.FromArgb(r, g, b)
+            };
+            radMap.Layers["Pins"].Add(pin);
+        }
 
         public void AddPin(double latitude_deg, double longitude_deg, string text)
         {
-            Pin = new MapPin(new PointG(latitude_deg, longitude_deg))
-            {
-                ToolTipText = text,
-                BackColor = Color.FromArgb(200, 50, 50)
-            };
-            radMap.Layers["Pins"].Add(Pin);
+            AddPinLocal(latitude_deg, longitude_deg, text, 11, 195, 197);
         }
 
+        public void AddPin(double latitude_deg, double longitude_deg, string text, int r, int g, int b)
+        {
+            AddPinLocal(latitude_deg, longitude_deg, text, r, g, b);
+        }
+
+        public void ClearPins()
+        {
+            radMap.Layers["Pins"].Clear();
+        }
+
+        #endregion
+
+        #region Path
+
+        private MapVisualElement CreatePathSegment(PointG start, PointG end, Color color, int width, int dashStyle)
+        {
+            var landRoute = new MapRoute(start, end)
+            {
+                BorderColor = color,
+                BorderWidth = width,
+                BorderDashStyle = (System.Drawing.Drawing2D.DashStyle)dashStyle,
+                SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias
+            };
+
+            return landRoute;
+        }
+
+        private bool _pathStarted;
+        private PointG _previousPoint;
+
+        public void AddPathPoint(double latitude_deg, double longitude_deg)
+        {
+            if (!_pathStarted)
+            {
+                _previousPoint = new PointG(latitude_deg, longitude_deg);
+                _pathStarted = true;
+                return;
+            }
+
+            var nextPoint = new PointG(latitude_deg, longitude_deg);
+            var pathElement = CreatePathSegment(_previousPoint, nextPoint, Color.Red, 3, 0);
+
+            radMap.Layers["Path"].Add(pathElement);
+
+            _previousPoint = nextPoint;
+        }
+
+        public void ClearPath()
+        {
+            radMap.Layers["Path"].Clear();
+        }
+
+        #endregion
     }
 }
