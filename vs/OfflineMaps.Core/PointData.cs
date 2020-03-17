@@ -16,6 +16,11 @@
         public double TemperatureAir_C { get; set; }
         public double RotationSpeedCrankshaft_turn_min { get; set; }
 
+        public PointData()
+        {
+
+        }
+
         public PointData(
             bool warning,
             double latitude_deg, 

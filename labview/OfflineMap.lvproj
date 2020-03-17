@@ -10,8 +10,18 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="dlls" Type="Folder">
+			<Item Name="OfflineMaps.Controls.dll" Type="Document" URL="../dlls/OfflineMaps.Controls.dll"/>
+			<Item Name="OfflineMaps.Core.dll" Type="Document" URL="../dlls/OfflineMaps.Core.dll"/>
+		</Item>
 		<Item Name="support" Type="Folder">
 			<Item Name="Data Share Type.ctl" Type="VI" URL="../support/Data Share Type.ctl"/>
+		</Item>
+		<Item Name="tests" Type="Folder">
+			<Item Name="Read track.vi" Type="VI" URL="../tests/Read track.vi"/>
+		</Item>
+		<Item Name="types" Type="Folder">
+			<Item Name="PointData Type.ctl" Type="VI" URL="../types/PointData Type.ctl"/>
 		</Item>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
@@ -48,7 +58,6 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
-			<Item Name="MapNetControl.dll" Type="Document" URL="../../vs/MapNetControl/bin/Debug/MapNetControl.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Main" Type="EXE">
