@@ -172,6 +172,8 @@ namespace OfflineMaps.Controls
 
         public void ClearPoints()
         {
+            schetchik = 0;
+
             ClearPins();
             ClearLabels();
             ClearPath();
@@ -192,6 +194,7 @@ namespace OfflineMaps.Controls
             radMap.Layers["Pins"].Add(pin);
         }
 
+        /*
         public void AddPin(double latitude_deg, double longitude_deg, string text)
         {
             AddPinLocal(latitude_deg, longitude_deg, null, text, Color.FromArgb(11, 195, 197));
@@ -201,6 +204,7 @@ namespace OfflineMaps.Controls
         {
             AddPinLocal(latitude_deg, longitude_deg, null, text, Color.FromArgb(r, g, b));
         }
+        */
 
         public void ClearPins()
         {
@@ -227,7 +231,7 @@ namespace OfflineMaps.Controls
         private bool _pathStarted;
         private PointG _previousPoint;
 
-        public void AddPathPoint(double latitude_deg, double longitude_deg, Color color)
+        private void AddPathPoint(double latitude_deg, double longitude_deg, Color color)
         {
             if (!_pathStarted)
             {
