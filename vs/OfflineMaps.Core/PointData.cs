@@ -1,4 +1,4 @@
-﻿namespace MapNetControl.Urartu
+﻿namespace OfflineMaps.Core
 {
     public class PointData
     {

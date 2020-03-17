@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ManyConsole;
 
-namespace CacheConverter
+namespace OfflineMaps.Console
 {
     public class Program
     {
@@ -10,7 +10,7 @@ namespace CacheConverter
         {
             var commands = GetCommands();
 
-            return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
+            return ConsoleCommandDispatcher.DispatchCommand(commands, args, System.Console.Out);
         }
 
         public static IEnumerable<ConsoleCommand> GetCommands()

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MapNetControl.WinForms")]
+[assembly: AssemblyTitle("OfflineMaps.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MapNetControl.WinForms")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCompany("Aliaksei Luferau")]
+[assembly: AssemblyProduct("OfflineMaps.Core")]
+[assembly: AssemblyCopyright("Copyright © Aliaksei Luferau 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c213d2df-4764-479e-9a8b-8ba67951b345")]
+[assembly: Guid("08918505-c97d-4497-ad2c-09b3af809129")]
 
 // Version information for an assembly consists of the following four values:
 //

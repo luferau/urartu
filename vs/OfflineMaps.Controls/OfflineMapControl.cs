@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
-using Telerik.WinControls.UI;
 using System.Linq;
 using System.Resources;
-using MapNetControl.Urartu;
+using System.Windows.Forms;
+using OfflineMaps.Core;
+using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Map;
 
-namespace MapNetControl
+namespace OfflineMaps.Controls
 {
-    public partial class MapNetControl: UserControl
+    public partial class OfflineMapControl: UserControl
     {
-        private ResourceManager _resourceManager;
+        private readonly ResourceManager _resourceManager;
 
-        public MapNetControl()
+        public OfflineMapControl()
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace MapNetControl
             radMap.MapElement.ViewportChanged += MapElementOnViewportChanged;
             radMap.Click += RadMapOnClick;
 
-            _resourceManager = new ResourceManager(typeof(MapNetControl));
+            _resourceManager = new ResourceManager(typeof(OfflineMapControl));
         }
 
         #region Events
@@ -61,7 +61,7 @@ namespace MapNetControl
                               $"\nТемпература, C: {pointData.TemperatureAir_C}\n" +
                               $"\nЧастота вр. кол. вала, об/мин: {pointData.RotationSpeedCrankshaft_turn_min}";
 
-            var calloutColor = pointData.Warning ? UrartuHelper.WarningColor : UrartuHelper.NormalColor;
+            var calloutColor = pointData.Warning ? Helper.WarningColor : Helper.NormalColor;
             var calloutImage = (Image)(pointData.Warning ? _resourceManager.GetObject("truck_warning")
                                                          : _resourceManager.GetObject("truck_ok"));
 
@@ -134,7 +134,7 @@ namespace MapNetControl
 
         public void AddPoint(PointData point, string text)
         {
-            var color = point.Warning ? UrartuHelper.WarningColor : UrartuHelper.NormalColor;
+            var color = point.Warning ? Helper.WarningColor : Helper.NormalColor;
             var image = (Image) (point.Warning ? _resourceManager.GetObject("truck_warning") 
                                                : _resourceManager.GetObject("truck_ok"));
             

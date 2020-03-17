@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MapNetControl.WinForms.Properties
+namespace OfflineMaps.WinForms.Properties
 {
 
 

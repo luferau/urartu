@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace CacheConverter
+namespace OfflineMaps.Console
 {
     public static class Helper
     {

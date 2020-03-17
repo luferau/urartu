@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using ManyConsole;
 
-namespace CacheConverter
+namespace OfflineMaps.Console
 {
     // Map tiles format description
     // Source format
@@ -12,7 +12,7 @@ namespace CacheConverter
     // Destination format
     // X {0} and Y {1} numbers and the Zoom level {2}
     // {0}_{1}_{2},
-    public class TitlesConvertCommand : ConsoleCommand
+    public class TilesConvertCommand : ConsoleCommand
     {
         private const int Success = 0;
         private const int Failure = 2;
@@ -20,7 +20,7 @@ namespace CacheConverter
         public string SourceFolder;
         public string DestinationFolder;
 
-        public TitlesConvertCommand()
+        public TilesConvertCommand()
         {
             IsCommand("convert", "Convert map tile files name to Telerik LocalMapProvider files format.");
             HasRequiredOption("s|source=", "The full path to source folder.", s => SourceFolder = s);
@@ -32,7 +32,7 @@ namespace CacheConverter
             try
             {
                 var filePaths = Helper.GetFileList("*.*", SourceFolder).ToArray();
-                Console.WriteLine($"{filePaths.Length} files found");
+                System.Console.WriteLine($"{filePaths.Length} files found");
 
                 var extension = "";
                 var counter = 0;
@@ -44,7 +44,7 @@ namespace CacheConverter
                     counter++;
                     if (counter > 100)
                     {
-                        Console.Write(".");
+                        System.Console.Write(".");
                         counter = 0;
                     }
 
@@ -72,14 +72,14 @@ namespace CacheConverter
                     File.Copy(filePath, newFilePath);
                 }
 
-                Console.WriteLine("\nConversion completed.");
+                System.Console.WriteLine("\nConversion completed.");
 
                 return Success;
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex.Message);
-                Console.Error.WriteLine(ex.StackTrace);
+                System.Console.Error.WriteLine(ex.Message);
+                System.Console.Error.WriteLine(ex.StackTrace);
 
                 return Failure;
             }

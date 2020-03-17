@@ -1,6 +1,6 @@
-﻿namespace MapNetControl
+﻿namespace OfflineMaps.Controls
 {
-    partial class MapNetControl
+    partial class OfflineMapControl
     {
         /// <summary>
         /// Required designer variable.

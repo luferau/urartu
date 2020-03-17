@@ -8,8 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{77986CA1-FB70-4E12-99B5-8DEE61E4998C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MapNetControl</RootNamespace>
-    <AssemblyName>MapNetControl</AssemblyName>
+    <RootNamespace>OfflineMaps.Controls</RootNamespace>
+    <AssemblyName>OfflineMaps.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -50,20 +50,19 @@
     <Reference Include="Telerik.WinControls.UI, Version=2018.2.515.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapNetControl.cs">
+    <Compile Include="OfflineMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MapNetControl.Designer.cs">
-      <DependentUpon>MapNetControl.cs</DependentUpon>
+    <Compile Include="OfflineMapControl.Designer.cs">
+      <DependentUpon>OfflineMapControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Urartu\PointData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Urartu\UrartuHelper.cs" />
+    <Compile Include="Helper.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MapNetControl.resx">
-      <DependentUpon>MapNetControl.cs</DependentUpon>
+    <EmbeddedResource Include="OfflineMapControl.resx">
+      <DependentUpon>OfflineMapControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
@@ -76,7 +75,13 @@
     <Resource Include="Resources\truck_warning.png" />
     <Resource Include="Resources\truck_ok.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OfflineMaps.Core\OfflineMaps.Core.csproj">
+      <Project>{08918505-c97d-4497-ad2c-09b3af809129}</Project>
+      <Name>OfflineMaps.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -86,5 +91,5 @@
     <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.props'))" />
     <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.targets'))" />
   </Target>
-  <Import Project="..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.targets')" />
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.targets" Condition="'$(Configuration)'=='Release' AND Exists('..\packages\MSBuild.ILMerge.Task.1.1.3\build\MSBuild.ILMerge.Task.targets')" />
 </Project>

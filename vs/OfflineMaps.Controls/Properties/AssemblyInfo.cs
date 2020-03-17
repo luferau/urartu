@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CacheConverter")]
+[assembly: AssemblyTitle("OfflineMaps.Controls")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CacheConverter")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCompany("Aliaksei Luferau")]
+[assembly: AssemblyProduct("OfflineMaps.Controls")]
+[assembly: AssemblyCopyright("Copyright © Aliaksei Luferau 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("08a773d9-2d56-477c-bd51-d286f0a46d9c")]
+[assembly: Guid("77986ca1-fb70-4e12-99b5-8dee61e4998c")]
 
 // Version information for an assembly consists of the following four values:
 //
