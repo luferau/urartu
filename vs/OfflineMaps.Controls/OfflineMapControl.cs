@@ -35,9 +35,9 @@ namespace OfflineMaps.Controls
         {
             if ((e.Action & ViewportChangeAction.Zoom) != 0)
             {
-                radMap.Layers["Pins"].IsVisible = radMap.MapElement.ZoomLevel <= 13;
-                radMap.Layers["Callout"].IsVisible = radMap.MapElement.ZoomLevel <= 13;
-                radMap.Layers["Labels"].IsVisible = radMap.MapElement.ZoomLevel > 13;
+                radMap.Layers["Pins"].IsVisible = radMap.MapElement.ZoomLevel <= 15;
+                radMap.Layers["Callout"].IsVisible = radMap.MapElement.ZoomLevel <= 15;
+                radMap.Layers["Labels"].IsVisible = radMap.MapElement.ZoomLevel > 15;
             }
         }
 
@@ -132,8 +132,13 @@ namespace OfflineMaps.Controls
 
         #region Points
 
+        private static int schetchik;
+
         public void AddPoint(PointData point, string text)
         {
+            schetchik++;
+            if (schetchik > 60) return;
+
             var color = point.Warning ? Helper.WarningColor : Helper.NormalColor;
             var image = (Image) (point.Warning ? _resourceManager.GetObject("truck_warning") 
                                                : _resourceManager.GetObject("truck_ok"));
@@ -163,6 +168,13 @@ namespace OfflineMaps.Controls
                 point.Latitude_deg,
                 point.Longitude_deg,
                 color);
+        }
+
+        public void ClearPoints()
+        {
+            ClearPins();
+            ClearLabels();
+            ClearPath();
         }
 
         #endregion
@@ -234,6 +246,8 @@ namespace OfflineMaps.Controls
 
         public void ClearPath()
         {
+            _pathStarted = false;
+
             radMap.Layers["Path"].Clear();
         }
 
@@ -245,7 +259,7 @@ namespace OfflineMaps.Controls
         {
             var label = new MapLabel(new PointG(latitude_deg, longitude_deg), text)
             {
-                // Add transparence
+                // Add transparence 
                 BackColor = Color.FromArgb(100, color.R, color.G, color.B),
                 BorderColor = Color.White,
                 ForeColor = Color.White,
@@ -253,7 +267,12 @@ namespace OfflineMaps.Controls
             };
             radMap.Layers["Labels"].Add(label);
         }
-        
+
+        public void ClearLabels()
+        {
+            radMap.Layers["Labels"].Clear();
+        }
+
         #endregion
     }
 }

@@ -14,13 +14,11 @@
 			<Item Name="OfflineMaps.Controls.dll" Type="Document" URL="../dlls/OfflineMaps.Controls.dll"/>
 			<Item Name="OfflineMaps.Core.dll" Type="Document" URL="../dlls/OfflineMaps.Core.dll"/>
 		</Item>
-		<Item Name="support" Type="Folder">
-			<Item Name="Data Share Type.ctl" Type="VI" URL="../support/Data Share Type.ctl"/>
-		</Item>
 		<Item Name="tests" Type="Folder">
 			<Item Name="Read track.vi" Type="VI" URL="../tests/Read track.vi"/>
 		</Item>
 		<Item Name="types" Type="Folder">
+			<Item Name="Data Share Type.ctl" Type="VI" URL="../types/Data Share Type.ctl"/>
 			<Item Name="PointData Type.ctl" Type="VI" URL="../types/PointData Type.ctl"/>
 		</Item>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
