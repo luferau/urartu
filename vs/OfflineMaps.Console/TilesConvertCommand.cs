@@ -54,6 +54,7 @@ namespace OfflineMaps.Console
                         extension = Path.GetExtension(filePath);
 
                     var pathParts = filePath.Split('\\');
+
                     var yPart = pathParts[pathParts.Length - 1];
                     var y = yPart.Substring(1, yPart.IndexOf('.') - 1);
 
