@@ -10,8 +10,8 @@ namespace OfflineMaps.WinForms
         {
             InitializeComponent();
 
-            //offlineMapControl.SetMapTitlesFolder(@"e:\UPWORK\urartu project\maps\sat\");
-            offlineMapControl.SetMapTitlesFolder(@"d:\upwork\urartu project\maps\google_map\");
+            offlineMapControl.SetMapTitlesFolder(@"e:\UPWORK\urartu project\maps\sat\");
+            //offlineMapControl.SetMapTitlesFolder(@"d:\upwork\urartu project\maps\google_map\");
         }
 
         private void point1Button_Click(object sender, EventArgs e)

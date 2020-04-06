@@ -79,13 +79,15 @@ namespace OfflineMaps.Console
 
                 #endregion
 
+                // z{zoom}\{x_div_1024}\x{x}\{y_div_1024}\y{y}
+                var regexParts = new Regex(@"(\\)(x|y|z)(\d+)");
+                var regexValue = new Regex(@"(\d+)");
+
                 foreach (var filePath in source1Files)
                 {
-                    // z{zoom}\{x_div_1024}\x{x}\{y_div_1024}\y{y}
-                    var regexParts = new Regex(@"(\\)(x|y|z)(\d+)");
                     var parts = regexParts.Matches(filePath);
 
-
+                    var xPart = 
                 }
 
 
